@@ -4,9 +4,8 @@
 
 #include <stdio.h>
 #include <string.h>
-#include "init_parser.h"
-
 #include <stdlib.h>
+#include "init_parser.h"
 
 void rimuovi_spazi(char* str) {
     char* i = str;
@@ -92,11 +91,8 @@ VettoreComplesso parse_init_vet(char* filename) {
             strncpy(tmp, strstart + 1, len);
             tmp[len] = '\0';  // null-terminate manualmente
 
-
             printf("%d\n", len);
             printf("%d\n", sizeof(tmp));
-
-
 
             int count = 1;
             for (int i = 0; i < len; i++) {
@@ -120,10 +116,7 @@ VettoreComplesso parse_init_vet(char* filename) {
             char *token = strtok_r(tmp, ",", &saveptr);
             int i = 0;
 
-            printf("qui ci arrivi\n");
-
             while (token) {
-                printf("Token: '%s'\n", token);
                 double real;
                 double img;
                 if (sscanf(token,"%lf+i%lf", &real, &img) == 2) {
