@@ -25,7 +25,7 @@ void free_matrice_complessa(MatriceComplessa* mat) {
 
 void printa_matrice_complessa(MatriceComplessa* mat) {
     for (int i = 0; i < mat->size; i++) {
-        printa_vettore_complesso(mat->vettori[i]);
+        printa_vettore_complesso(&mat->vettori[i]);
     }
 }
 

@@ -6,19 +6,7 @@
 #include <string.h>
 #include <stdlib.h>
 #include "init_parser.h"
-
-void rimuovi_spazi(char* str) {
-    char* i = str;
-    char* j = str;
-    while (*j != 0) {
-        if (*j != ' ') {
-            *i = *j;
-            i++;
-        }
-        j++;
-    }
-    *i = '\0';
-}
+#include "util.h"
 
 int parse_qubits(char* filename) {
     char buffer[256];
@@ -58,7 +46,6 @@ int parse_qubits(char* filename) {
             }
 
             fclose(fp);
-            printf("numero di qubits: %d\n", qubits);
             return qubits;
         }
     }
@@ -69,7 +56,7 @@ int parse_qubits(char* filename) {
 
 }
 
-VettoreComplesso parse_init_vet(char* filename) {
+VettoreComplesso parse_init_vet(char* filename, int q_len) {
     char buffer[1024];
     FILE *fp = fopen(filename, "r");
     if (fp == NULL) {
@@ -91,9 +78,6 @@ VettoreComplesso parse_init_vet(char* filename) {
             strncpy(tmp, strstart + 1, len);
             tmp[len] = '\0';  // null-terminate manualmente
 
-            printf("%d\n", len);
-            printf("%d\n", sizeof(tmp));
-
             int count = 1;
             for (int i = 0; i < len; i++) {
                 if (tmp[i] == ',') {
@@ -101,16 +85,14 @@ VettoreComplesso parse_init_vet(char* filename) {
                 }
             }
 
-            VettoreComplesso init_vet;
-            init_vet = genera_vettore_complesso(count);
-            rimuovi_spazi(tmp);
-            printf("Dopo: '%s'\n", tmp);
-
-            printf("tmp: '%s'\n", tmp);
-            for (int i = 0; i < 30; i++) {
-                printf("tmp[%d] = 0x%02x (%c)\n", i, (unsigned char)tmp[i],
-                       (tmp[i] >= 32 && tmp[i] <= 126) ? tmp[i] : '.');
+            if (count != q_len) {
+                printf("Errore: vettore init definito erroneamente\n");
+                exit(EXIT_FAILURE);
             }
+
+            VettoreComplesso init_vet;
+            init_vet = genera_vettore_complesso(q_len);
+            rimuovi_spazi(tmp);
 
             char *saveptr;
             char *token = strtok_r(tmp, ",", &saveptr);
@@ -123,7 +105,6 @@ VettoreComplesso parse_init_vet(char* filename) {
                     //parsing riuscito
                     init_vet.complessi[i].real = real;
                     init_vet.complessi[i].img = img;
-                    printf("fin qui tutto ok\n");
                 }
                 else if (sscanf(token, "%lf-i%lf", &real, &img) == 2) {
                     //parsing riuscito
@@ -138,7 +119,6 @@ VettoreComplesso parse_init_vet(char* filename) {
                 token = strtok_r(NULL, ",", &saveptr);
 
             }
-            printa_vettore_complesso(&init_vet);
             return init_vet;
         }
 

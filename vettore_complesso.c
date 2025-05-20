@@ -27,6 +27,6 @@ void free_vettore_complesso(VettoreComplesso* vet) {
 //printa ogni numero complesso nel vettore
 void printa_vettore_complesso(VettoreComplesso* vet) {
     for (int i = 0; i < vet->size; i++) {
-        printf("%lf + i%lf\n", vet->complessi[i].real, vet->complessi[i].img);
+        printa_complesso(vet->complessi[i]);
     }
 }

@@ -23,3 +23,11 @@ double mod_complessi(Complesso a) {
     risultato = sqrt((a.real * a.real) + (a.img * a.img));
     return risultato;
 }
+
+void printa_complesso(Complesso c) {
+    if (c.img < 0) {
+        printf("%lf - i%lf\n", c.real, -c. img);
+    } else {
+        printf("%lf + i%lf\n", c.real, c.img);
+    }
+}

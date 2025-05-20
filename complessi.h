@@ -15,5 +15,6 @@ typedef struct {
 Complesso somma_complessi(Complesso a, Complesso b); //somma due numeri complessi e ritorna un complesso
 Complesso molt_complessi(Complesso a, Complesso b); //moltiplica due numeri complessi e ritorna un complesso
 double mod_complesso(Complesso a); //fa il modulo di un complesso e ritorna un reale
+void printa_complesso(Complesso a);
 
 #endif

@@ -5,8 +5,8 @@
 
 #include "matrice_complessa.h"
 
-MatriceComplessa parse_gate(char* filepath);
+void parse_circ(char* filepath, char* dest);
 
-char* parse_circ(char* filepath);
+void parse_gate(char* filepath, MatriceComplessa* mat_arr, int q_len, char* circ);
 
 #endif
