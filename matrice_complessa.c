@@ -10,19 +10,25 @@
 MatriceComplessa genera_matrice_complessa(int size) {
     MatriceComplessa mat;
     mat.size = size;
-    mat.vettori = malloc(sizeof(VettoreComplesso) * size); //allochiamo la memoria necessaria per il numero di righe richiesto
-    if (mat.vettori == NULL) {
-        printf("Errore: malloc fallita\n");
-        exit(EXIT_FAILURE);
+    mat.vettori = malloc(size * sizeof(VettoreComplesso));
+    for (int i = 0; i < size; i++) {
+        mat.vettori[i] = genera_vettore_complesso(size);  // ❗ deve inizializzare ogni riga
     }
     return mat;
 }
 
+
 void free_matrice_complessa(MatriceComplessa* mat) {
-    free(mat->vettori);
-    mat->vettori = NULL; //impostiamo vettori a NULL e size a 0 per evitare puntatori a memoria libera
+    if (mat->vettori != NULL) {
+        for (int i = 0; i < mat->size; i++) {
+            free_vettore_complesso(&mat->vettori[i]);  // usa la funzione esistente
+        }
+        free(mat->vettori);
+        mat->vettori = NULL;
+    }
     mat->size = 0;
 }
+
 
 void printa_matrice_complessa(MatriceComplessa* mat) {
     for (int i = 0; i < mat->size; i++) {
@@ -30,4 +36,29 @@ void printa_matrice_complessa(MatriceComplessa* mat) {
         printf("\n");
     }
 }
+
+MatriceComplessa molt_matrici(MatriceComplessa* a, MatriceComplessa* b, int q_len) {
+    MatriceComplessa risultato = genera_matrice_complessa(q_len);
+
+    for (int i = 0; i < q_len; i++) {
+        for (int j = 0; j < q_len; j++) {
+            Complesso somma;
+            somma.real = 0;
+            somma.img = 0;
+
+            for (int k = 0; k < q_len; k++) {
+                Complesso prod = molt_complessi(
+                    a->vettori[i].complessi[k],
+                    b->vettori[k].complessi[j]
+                );
+                somma = somma_complessi(somma, prod);
+            }
+
+            risultato.vettori[i].complessi[j] = somma;
+        }
+    }
+
+    return risultato;
+}
+
 

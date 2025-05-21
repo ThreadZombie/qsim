@@ -93,6 +93,7 @@ void parse_gate(char* filepath, MatriceComplessa* mat_arr, int q_len, char* circ
 
                             parsa_vettore(&vet, tuple_str); //parsiamo i dati da mettere nel vettore
 
+                            free_vettore_complesso(&mat.vettori[i_mat]);
                             mat.vettori[i_mat] = vet; //aggiungiamo il vettore alla matrice
                             i_mat++;
 
@@ -109,8 +110,11 @@ void parse_gate(char* filepath, MatriceComplessa* mat_arr, int q_len, char* circ
                 }
             }
         }
-        printa_matrice_complessa(&mat);
-        printf("finisce qua\n");
+        //printa_matrice_complessa(&mat);
+        mat_arr[i] = mat;
+
+
+
     }
     return;
 

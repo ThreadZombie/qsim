@@ -2,7 +2,9 @@
  * sui numeri complessi definite nel file header complessi.h */
 
 #include <math.h>
+#include <stdio.h>
 #include "complessi.h"
+
 
 Complesso somma_complessi(Complesso a, Complesso b) {
     Complesso risultato;
@@ -26,8 +28,8 @@ double mod_complessi(Complesso a) {
 
 void printa_complesso(Complesso c) {
     if (c.img < 0) {
-        printf("%lf - i%lf", c.real, -c. img);
+        printf("%.2lf - i%.2lf", c.real, -c. img);
     } else {
-        printf("%lf + i%lf", c.real, c.img);
+        printf("%.2lf + i%.2lf", c.real, c.img);
     }
 }
