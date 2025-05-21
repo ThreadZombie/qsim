@@ -21,4 +21,6 @@ void printa_matrice_complessa(MatriceComplessa* mat);
 
 MatriceComplessa molt_matrici(MatriceComplessa* a, MatriceComplessa* b, int q_len);
 
+VettoreComplesso molt_mat_vet(MatriceComplessa* a, VettoreComplesso* b, int q_len);
+
 #endif

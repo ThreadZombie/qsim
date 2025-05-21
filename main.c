@@ -19,7 +19,9 @@ int main(void) {
     init_vet = parse_init_vet("init-ex.txt", q_len); //prendiamo il vettore init dal file in input tramite la funzione di parsing
 
     //printf("qubits: %d, q_len: %d\n", qubits, q_len);
-    //printa_vettore_complesso(&init_vet);
+    printf("STATO INIZIALE:\n");
+    printa_vettore_complesso(&init_vet);
+    printf("\n");
 
     char circ[1024];
     parse_circ("circ-ex.txt", circ);
@@ -55,22 +57,28 @@ int main(void) {
 
     // Moltiplica iterativamente per ogni matrice in mat_arr
     for (int i = 0; i < circ_len; i++) {
-        printf("fattore1 %d:\n", i);
-        printa_matrice_complessa(&prodotto);
-        printf("\n");
-        printf("fattore2 %d:\n", i);
-        printa_matrice_complessa(&mat_arr[i]);
-        printf("\n");
+        //printf("fattore1 %d:\n", i);
+        //printa_matrice_complessa(&prodotto);
+        //printf("\n");
+        //printf("fattore2 %d:\n", i);
+        //printa_matrice_complessa(&mat_arr[i]);
+        //printf("\n");
         MatriceComplessa temp = molt_matrici(&prodotto, &mat_arr[i], q_len);
         free_matrice_complessa(&prodotto);  // libera memoria della matrice precedente
         prodotto = temp;                    // aggiorna il risultato con il nuovo prodotto
-        printf("risultato %d:\n", i);
-        printa_matrice_complessa(&prodotto);
+        //printf("risultato %d:\n", i);
+        //printa_matrice_complessa(&prodotto);
     }
 
     // Stampa la matrice finale
     printf("PRODOTTO:\n");
     printa_matrice_complessa(&prodotto);
+
+    VettoreComplesso vfin = molt_mat_vet(&prodotto, &init_vet, q_len);
+    printf("STATO FINALE:\n");
+    printa_vettore_complesso(&vfin);
+
+
 
     // Pulizia finale
     free_matrice_complessa(&prodotto);

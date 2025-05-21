@@ -61,4 +61,24 @@ MatriceComplessa molt_matrici(MatriceComplessa* a, MatriceComplessa* b, int q_le
     return risultato;
 }
 
+VettoreComplesso molt_mat_vet(MatriceComplessa* a, VettoreComplesso* b, int q_len) {
+    VettoreComplesso risultato = genera_vettore_complesso(q_len);
+
+    for (int i = 0; i < q_len; i++) {
+        Complesso somma;
+        somma.real = 0.0;
+        somma.img = 0.0;
+
+        for (int j = 0; j < q_len; j++) {
+            Complesso m_ij = a->vettori[i].complessi[j];
+            Complesso v_j = b->complessi[j];
+            Complesso prodotto = molt_complessi(m_ij, v_j);
+            somma = somma_complessi(somma, prodotto);
+        }
+        risultato.complessi[i] = somma;
+    }
+
+    return risultato;
+}
+
 
