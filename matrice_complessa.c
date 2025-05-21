@@ -15,6 +15,7 @@ MatriceComplessa genera_matrice_complessa(int size) {
         printf("Errore: malloc fallita\n");
         exit(EXIT_FAILURE);
     }
+    return mat;
 }
 
 void free_matrice_complessa(MatriceComplessa* mat) {
@@ -26,6 +27,7 @@ void free_matrice_complessa(MatriceComplessa* mat) {
 void printa_matrice_complessa(MatriceComplessa* mat) {
     for (int i = 0; i < mat->size; i++) {
         printa_vettore_complesso(&mat->vettori[i]);
+        printf("\n");
     }
 }
 

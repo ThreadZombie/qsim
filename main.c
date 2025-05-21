@@ -19,12 +19,12 @@ int main(void) {
     init_vet = parse_init_vet("init-ex.txt", q_len); //prendiamo il vettore init dal file in input tramite la funzione di parsing
 
     printf("qubits: %d, q_len: %d\n", qubits, q_len);
-    printa_vettore_complesso(&init_vet);
+    //printa_vettore_complesso(&init_vet);
 
     char circ[1024];
     parse_circ("circ-ex.txt", circ);
 
-    printf("%s\n", circ);
+    //printf("%s\n", circ);
 
     int circ_len = strlen(circ);
     MatriceComplessa* mat_arr = malloc(sizeof(MatriceComplessa) * circ_len);
@@ -33,7 +33,7 @@ int main(void) {
 
     Complesso c;
     parsa_numero_complesso("0+i", &c);
-    printa_complesso(c);
+    //printa_complesso(c);
 
     return 0;
 }

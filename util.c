@@ -3,6 +3,7 @@
 #include <string.h>
 #include <stdlib.h>
 #include "complessi.h"
+#include "vettore_complesso.h"
 
 
 void rimuovi_spazi(char* str) {
@@ -71,5 +72,21 @@ void parsa_numero_complesso(const char* str, Complesso* c) {
                 c->img = 0.0;
             }
         }
+    }
+}
+
+//prende una stringa del tipo "complesso,complesso" e un vettore di complessi, e "popola" il vettore con i valori della stringa
+void parsa_vettore(VettoreComplesso* vet, char* str) {
+    char* str_copy = strdup(str);
+    char *saveptr;
+    char *token = strtok_r(str_copy, ",", &saveptr);
+    int i = 0;
+
+    while (token) {
+        Complesso c;
+        parsa_numero_complesso(token, &c);
+        vet->complessi[i] = c;
+        i++;
+        token = strtok_r(NULL, ",", &saveptr);
     }
 }

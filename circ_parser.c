@@ -51,9 +51,11 @@ void parse_gate(char* filepath, MatriceComplessa* mat_arr, int q_len, char* circ
         sprintf(define, "#define %s", gate);
         rewind(fp);
 
-        MatriceComplessa mat;
-        mat = genera_matrice_complessa(q_len);
-        int count = 0;
+
+        MatriceComplessa mat = genera_matrice_complessa(q_len); //avrà q_len righe
+
+        int i_mat = 0;
+
 
         while (fgets(buffer, sizeof(buffer), fp) != NULL) {
             if (strncmp(buffer, define, strlen(define)) == 0) {
@@ -68,10 +70,47 @@ void parse_gate(char* filepath, MatriceComplessa* mat_arr, int q_len, char* circ
                 size_t len = strend - strstart - 1;
                 strncpy(tmp, strstart + 1, len);
                 tmp[len] = '\0';  // null-terminate manualmente
-                printf(&tmp);
-                printf("\n");
+                int tmplen = strlen(tmp);
+                rimuovi_spazi(tmp);
+                //printf("%s\n", tmp);
+
+                const char *p = tmp;
+                int count = 0;
+
+                while (*p && count < q_len) {
+                    if (*p == '(') {
+                        const char *start = p + 1;
+                        const char *end = strchr(start, ')');
+
+                        if (end) {
+                            size_t len = end - start;
+                            char *tuple_str = malloc(len + 1);
+
+                            strncpy(tuple_str, start, len);
+                            tuple_str[len] = '\0';
+
+                            VettoreComplesso vet = genera_vettore_complesso(q_len); //inizializziamo il vettore che rappresenta la riga della matrice
+
+                            parsa_vettore(&vet, tuple_str); //parsiamo i dati da mettere nel vettore
+
+                            mat.vettori[i_mat] = vet; //aggiungiamo il vettore alla matrice
+                            i_mat++;
+
+                            //printf("Tupla %d: %s\n", count, tuple_str);
+
+                            free(tuple_str);
+                            count++;
+                            p = end + 1;
+
+                        } else {
+                            p++;
+                        }
+                    }
+                }
             }
         }
+        printa_matrice_complessa(&mat);
+        printf("finisce qua\n");
     }
     return;
 

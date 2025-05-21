@@ -28,5 +28,6 @@ void free_vettore_complesso(VettoreComplesso* vet) {
 void printa_vettore_complesso(VettoreComplesso* vet) {
     for (int i = 0; i < vet->size; i++) {
         printa_complesso(vet->complessi[i]);
+        printf(", ");
     }
 }

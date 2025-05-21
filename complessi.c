@@ -26,8 +26,8 @@ double mod_complessi(Complesso a) {
 
 void printa_complesso(Complesso c) {
     if (c.img < 0) {
-        printf("%lf - i%lf\n", c.real, -c. img);
+        printf("%lf - i%lf", c.real, -c. img);
     } else {
-        printf("%lf + i%lf\n", c.real, c.img);
+        printf("%lf + i%lf", c.real, c.img);
     }
 }
