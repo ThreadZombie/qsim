@@ -32,7 +32,7 @@ int main(void) {
     parse_gate("circ-ex.txt", mat_arr, q_len, circ);
 
     Complesso c;
-    parsa_numero_complesso("-0.5-i2.5", &c);
+    parsa_numero_complesso("0+i", &c);
     printa_complesso(c);
 
     return 0;

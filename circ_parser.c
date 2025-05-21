@@ -51,9 +51,25 @@ void parse_gate(char* filepath, MatriceComplessa* mat_arr, int q_len, char* circ
         sprintf(define, "#define %s", gate);
         rewind(fp);
 
+        MatriceComplessa mat;
+        mat = genera_matrice_complessa(q_len);
+        int count = 0;
+
         while (fgets(buffer, sizeof(buffer), fp) != NULL) {
             if (strncmp(buffer, define, strlen(define)) == 0) {
-                printf(&buffer);
+                char* strstart = strchr(buffer, '[');
+                char* strend = strchr(buffer, ']');
+                if (!strstart || !strend) {
+                    printf("Errore: direttiva circ scritta in formato sbagliato\n");
+                    exit(EXIT_FAILURE);
+                }
+
+                char tmp[1024];
+                size_t len = strend - strstart - 1;
+                strncpy(tmp, strstart + 1, len);
+                tmp[len] = '\0';  // null-terminate manualmente
+                printf(&tmp);
+                printf("\n");
             }
         }
     }
