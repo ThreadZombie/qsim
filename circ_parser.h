@@ -7,6 +7,6 @@
 
 void parse_circ(char* filepath, char* dest);
 
-void parse_gate(char* filepath, MatriceComplessa* mat_arr, int q_len, char* circ, int circ_len);
+void parse_gate(char* filepath, MatriceComplessa* mat_arr, int q_len, char* circ);
 
 #endif

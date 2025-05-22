@@ -35,7 +35,7 @@ void parse_circ(char* filepath, char* dest) {
 
 
 //funzione per ottenere le matrici definite nel file circ.txt, prende in input il file e restituisce un array di matrici di complessi
-void parse_gate(char* filepath, MatriceComplessa* mat_arr, int q_len, char* circ, int circ_len) {
+void parse_gate(char* filepath, MatriceComplessa* mat_arr, int q_len, char* circ) {
     char buffer[1024];
     FILE *fp = fopen(filepath, "r");
     if (fp == NULL) {
@@ -43,7 +43,7 @@ void parse_gate(char* filepath, MatriceComplessa* mat_arr, int q_len, char* circ
         exit(EXIT_FAILURE);
     }
 
-    int j = circ_len - 1;
+
     for (int i = 0; circ[i] != '\0'; i++) {
         char define[16];
         char gate[2];
@@ -113,8 +113,8 @@ void parse_gate(char* filepath, MatriceComplessa* mat_arr, int q_len, char* circ
             }
         }
         //printa_matrice_complessa(&mat);
-        mat_arr[j] = mat;
-        j--;
+        mat_arr[i] = mat;
+
 
 
 

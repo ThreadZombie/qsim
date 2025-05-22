@@ -31,7 +31,7 @@ int main(void) {
     int circ_len = strlen(circ);
     MatriceComplessa* mat_arr = malloc(sizeof(MatriceComplessa) * circ_len);
 
-    parse_gate("circ-ex.txt", mat_arr, q_len, circ, circ_len);
+    parse_gate("circ-ex.txt", mat_arr, q_len, circ);
 
     /*
     for (int i = 0; i < circ_len; i++) {
@@ -59,15 +59,15 @@ int main(void) {
             }
         }
     }
-
+// CIAOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO :)
 
     // Moltiplica iterativamente per ogni matrice in mat_arr
     for (int i = 0; i < circ_len; i++) {
         printf("fattore1 %d:\n", i);
-        printa_matrice_complessa(&prodotto);
+        printa_matrice_complessa(&mat_arr[i]);
         printf("\n");
         printf("fattore2 %d:\n", i);
-        printa_matrice_complessa(&mat_arr[i]);
+        printa_matrice_complessa(&prodotto);
         printf("\n");
         MatriceComplessa temp = molt_matrici(&mat_arr[i], &prodotto, q_len);
         free_matrice_complessa(&prodotto);  // libera memoria della matrice precedente
