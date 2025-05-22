@@ -31,7 +31,7 @@ int main(void) {
     int circ_len = strlen(circ);
     MatriceComplessa* mat_arr = malloc(sizeof(MatriceComplessa) * circ_len);
 
-    parse_gate("circ-ex.txt", mat_arr, q_len, circ);
+    parse_gate("circ-ex.txt", mat_arr, q_len, circ, circ_len);
 
     /*
     for (int i = 0; i < circ_len; i++) {
@@ -50,24 +50,30 @@ int main(void) {
     // Inizializza tutti i valori della matrice a 1 + 0i
     for (int i = 0; i < q_len; i++) {
         for (int j = 0; j < q_len; j++) {
-            prodotto.vettori[i].complessi[j].real = 1.0;
-            prodotto.vettori[i].complessi[j].img = 0.0;
+            if (i == j) {
+                prodotto.vettori[i].complessi[j].real = 1.0;
+                prodotto.vettori[i].complessi[j].img = 0.0;
+            } else {
+                prodotto.vettori[i].complessi[j].real = 0.0;
+                prodotto.vettori[i].complessi[j].img = 0.0;
+            }
         }
     }
 
+
     // Moltiplica iterativamente per ogni matrice in mat_arr
     for (int i = 0; i < circ_len; i++) {
-        //printf("fattore1 %d:\n", i);
-        //printa_matrice_complessa(&prodotto);
-        //printf("\n");
-        //printf("fattore2 %d:\n", i);
-        //printa_matrice_complessa(&mat_arr[i]);
-        //printf("\n");
-        MatriceComplessa temp = molt_matrici(&prodotto, &mat_arr[i], q_len);
+        printf("fattore1 %d:\n", i);
+        printa_matrice_complessa(&prodotto);
+        printf("\n");
+        printf("fattore2 %d:\n", i);
+        printa_matrice_complessa(&mat_arr[i]);
+        printf("\n");
+        MatriceComplessa temp = molt_matrici(&mat_arr[i], &prodotto, q_len);
         free_matrice_complessa(&prodotto);  // libera memoria della matrice precedente
         prodotto = temp;                    // aggiorna il risultato con il nuovo prodotto
-        //printf("risultato %d:\n", i);
-        //printa_matrice_complessa(&prodotto);
+        printf("risultato %d:\n", i);
+        printa_matrice_complessa(&prodotto);
     }
 
     // Stampa la matrice finale
